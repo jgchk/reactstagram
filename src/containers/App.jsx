@@ -1,10 +1,14 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import { addUser } from '../actions/users'
 import { addPost } from '../actions/posts'
 import { randomUser } from '../model/user'
 import { randomPost } from '../model/post'
+
+import Home from './Home'
+import Post from './Post'
 
 const App = () => {
   // mock user and post
@@ -17,7 +21,14 @@ const App = () => {
     dispatch(addPost(post))
   }
 
-  return <div>Hello React!</div>
+  return (
+    <Router>
+      <Switch>
+        <Route path='/p/:id' component={Post} />
+        <Route path='/' component={Home} />
+      </Switch>
+    </Router>
+  )
 }
 
 export default App
