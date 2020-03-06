@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 
 import { Provider } from 'react-redux'
 import createStore from './store'
-import App from './components/App'
+import App from './containers/App'
 import { dev } from './config'
 
 function createRootElement() {
@@ -26,7 +26,7 @@ const renderApp = () => {
 }
 
 if (dev && module.hot) {
-  module.hot.accept('./components/App', renderApp)
+  module.hot.accept('./containers/App', renderApp)
 }
 
 renderApp()

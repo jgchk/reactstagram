@@ -2,7 +2,8 @@ import { createActions } from 'redux-actions'
 
 import { users as db } from '../database'
 
-export default createActions({
+// eslint-disable-next-line import/prefer-default-export
+export const { addUser } = createActions({
   ADD_USER: user => {
     db.add(user)
     return { user }

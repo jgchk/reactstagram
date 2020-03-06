@@ -2,7 +2,8 @@ import { createActions } from 'redux-actions'
 
 import { comments as db } from '../database'
 
-export default createActions({
+// eslint-disable-next-line import/prefer-default-export
+export const { addComment } = createActions({
   ADD_COMMENT: comment => {
     db.add(comment)
     return { comment }
