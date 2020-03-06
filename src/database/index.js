@@ -24,3 +24,7 @@ export const comments = {
     db.add(commentIds, comment.id)
   },
 }
+
+// reset db each run, for mocking purposes
+// wouldn't do this in production
+db.clear()
