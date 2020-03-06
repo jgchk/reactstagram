@@ -10,11 +10,14 @@
     "fix": "eslint --cache --fix ./src"
   },
   "dependencies": {
+    "immutable": "^4.0.0-rc.12",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
+    "redux-actions": "^2.6.5",
     "redux-devtools-extension": "^2.13.8",
+    "redux-immutable": "^4.0.0",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {

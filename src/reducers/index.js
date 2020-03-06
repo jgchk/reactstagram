@@ -1,3 +1,7 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux-immutable'
 
-export default combineReducers({})
+import comments from './comments'
+
+export default combineReducers({
+  comments,
+})
