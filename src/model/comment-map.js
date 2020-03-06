@@ -1,5 +1,5 @@
-import { OrderedMap } from 'immutable'
+import { Map } from 'immutable'
 
-const CommentMap = OrderedMap
+const CommentMap = Map
 
 export default CommentMap
