@@ -1,9 +1,9 @@
-import { Record } from 'immutable'
+import { Record, Set } from 'immutable'
 
 const User = Record({
   id: null,
-  postIds: [],
-  commentIds: [],
+  postIds: Set(),
+  commentIds: Set(),
 })
 
 export default User
