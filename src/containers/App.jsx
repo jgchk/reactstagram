@@ -7,8 +7,8 @@ import { addPost } from '../actions/posts'
 import { randomUser } from '../model/user'
 import { randomPost } from '../model/post'
 
-import Home from './Home'
-import Post from './Post'
+import Home from './pages/Home'
+import Post from './pages/Post'
 
 const App = () => {
   // mock user and post
