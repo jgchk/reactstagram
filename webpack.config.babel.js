@@ -1,9 +1,9 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const path = require('path')
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import path from 'path'
 
-const dev = process.env.NODE_ENV === 'development'
+import { dev } from './src/config'
 
-module.exports = {
+export default {
   mode: dev ? 'development' : 'production',
   entry: './src/index.jsx',
   module: {
@@ -23,6 +23,9 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
-  devServer: { contentBase: './dist' },
+  devServer: {
+    contentBase: './dist',
+    hot: true,
+  },
   plugins: [new HtmlWebpackPlugin()],
 }
