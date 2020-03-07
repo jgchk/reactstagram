@@ -8,9 +8,9 @@ const Home = () => {
 
   return (
     <div>
-      {posts.valueSeq().map(post => {
-        return <Post key={post.id} post={post} />
-      })}
+      {posts.valueSeq().map(post => (
+        <Post key={post.id} post={post} />
+      ))}
     </div>
   )
 }

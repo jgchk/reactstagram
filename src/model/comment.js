@@ -1,25 +1,37 @@
-import { Record } from 'immutable'
+import { Record, Set } from 'immutable'
 
-import { uid, sentence as randomSentence } from '../lib/random'
+import {
+  uid,
+  sentence as randomSentence,
+  dateSince as randomDateSince,
+} from '../lib/random'
 
 const Comment = Record({
   id: null,
   text: null,
+  timestamp: null,
   userId: null,
   postId: null,
+  likeIds: Set(),
 })
 
-export function createComment(text, userId, postId) {
+export function createComment(text, timestamp, userId, postId) {
   return Comment({
     id: uid(),
     text,
+    timestamp,
     userId,
     postId,
   })
 }
 
-export function randomComment(userId, postId) {
-  return createComment(randomSentence(), userId, postId)
+export function randomComment(userId, postId, postDate) {
+  return createComment(
+    randomSentence(),
+    randomDateSince(postDate),
+    userId,
+    postId
+  )
 }
 
 export default Comment
