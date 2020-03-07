@@ -26,3 +26,9 @@ export function add(key, value) {
   collection.add(value)
   set(key, Array.from(collection))
 }
+
+export function del(key, value) {
+  const collection = new Set(get(key, []))
+  collection.delete(value)
+  set(key, Array.from(collection))
+}

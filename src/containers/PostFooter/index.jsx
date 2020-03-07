@@ -11,29 +11,41 @@ import PostCommentBox from '../../components/PostCommentBox'
 
 import { createComment } from '../../model/comment'
 import { addComment } from '../../actions/comments'
+import { createLike, Target } from '../../model/like'
+import { addLike, removeLike } from '../../actions/likes'
 
 import styles from './styles.module.less'
 
 const PostFooter = ({ post }) => {
+  const dispatch = useDispatch()
+
   const comments = useSelector(state =>
     post.commentIds.map(id => state.getIn(['comments', id]))
   )
-  const loggedInUserId = useSelector(state => state.get('currentUserId'))
-  const dispatch = useDispatch()
+  const currentUserId = useSelector(state => state.get('currentUserId'))
+  const like = useSelector(state =>
+    state.get('likes').find(l => l.userId === currentUserId)
+  )
 
-  const onLike = () => console.log('like')
+  const onLike = () => {
+    if (like) dispatch(removeLike(like))
+    else
+      dispatch(
+        addLike(createLike(new Date(), currentUserId, post.id, Target.POST))
+      )
+  }
   const onCommentButton = () => console.log('comment')
   const onShare = () => console.log('share')
   const onSave = () => console.log('save')
   const onCommentBox = text => {
-    console.log('comment', text)
-    const comment = createComment(text, new Date(), loggedInUserId, post.id)
+    const comment = createComment(text, new Date(), currentUserId, post.id)
     dispatch(addComment(comment))
   }
 
   return (
     <div>
       <PostActions
+        liked={!!like}
         onLike={onLike}
         onComment={onCommentButton}
         onShare={onShare}

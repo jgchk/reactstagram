@@ -1,4 +1,4 @@
-import Record from 'immutable'
+import { Record } from 'immutable'
 
 import { uid } from '../lib/random'
 
@@ -9,6 +9,11 @@ const Like = Record({
   targetId: null,
   targetType: null,
 })
+
+export const Target = {
+  POST: 'post',
+  COMMENT: 'comment',
+}
 
 export function createLike(timestamp, userId, targetId, targetType) {
   return Like({

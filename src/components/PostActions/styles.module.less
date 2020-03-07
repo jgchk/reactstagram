@@ -10,12 +10,16 @@
 .button {
 	background: none;
 	border: none;
-
 	padding: 8px;
-
 	font-size: 0;
-
 	cursor: pointer;
+}
+
+.animate {
+	animation-name: like;
+	animation-duration: 0.4s;
+	animation-timing-function: ease-in-out;
+	animation-direction: normal;
 }
 
 .first-button {
@@ -25,4 +29,11 @@
 .save-button {
 	margin-left: auto;
 	margin-right: -10px;
+}
+
+@keyframes like {
+    0% { transform: scale(1) }
+	33% { transform: scale(1.2) }
+	67% { transform: scale(0.95) }
+	100% { transform: scale(1) }
 }

@@ -13,6 +13,10 @@ export default handleActions(
       state.updateIn([comment.userId, 'commentIds'], ids =>
         ids.add(comment.id)
       ),
+    ADD_LIKE: (state, { payload: { like } }) =>
+      state.updateIn([like.userId, 'likeIds'], ids => ids.add(like.id)),
+    REMOVE_LIKE: (state, { payload: { like } }) =>
+      state.updateIn([like.userId, 'likeIds'], ids => ids.delete(like.id)),
   },
   defaultState
 )
