@@ -37,7 +37,7 @@ const PostFooter = ({ post }) => {
   }
   const onCommentButton = () => commentBox.current.focus()
   const onShare = () => alert('share')
-  const onSave = () => console.log('save')
+  const onSave = () => alert('save')
   const onCommentBox = text => {
     const comment = createComment(text, new Date(), currentUserId, post.id)
     dispatch(addComment(comment))
