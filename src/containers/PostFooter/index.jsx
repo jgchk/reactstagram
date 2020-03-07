@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import Post from '../../model/post'
 import PostActions from '../../components/PostActions'
@@ -9,18 +9,27 @@ import PostComment from '../PostComment'
 import PostTimestamp from '../../components/PostTimestamp'
 import PostCommentBox from '../../components/PostCommentBox'
 
+import { createComment } from '../../model/comment'
+import { addComment } from '../../actions/comments'
+
 import styles from './styles.less'
 
 const PostFooter = ({ post }) => {
   const comments = useSelector(state =>
     post.commentIds.map(id => state.getIn(['comments', id]))
   )
+  const loggedInUserId = useSelector(state => state.get('currentUserId'))
+  const dispatch = useDispatch()
 
   const onLike = () => console.log('like')
   const onCommentButton = () => console.log('comment')
   const onShare = () => console.log('share')
   const onSave = () => console.log('save')
-  const onCommentBox = () => console.log('comment')
+  const onCommentBox = text => {
+    console.log('comment', text)
+    const comment = createComment(text, new Date(), loggedInUserId, post.id)
+    dispatch(addComment(comment))
+  }
 
   return (
     <div>
@@ -33,7 +42,7 @@ const PostFooter = ({ post }) => {
       <PostLikes likes={post.likeIds.size} />
       <div className={styles.comments}>
         {comments.valueSeq().map(comment => (
-          <PostComment comment={comment} />
+          <PostComment key={comment.id} comment={comment} />
         ))}
       </div>
       <PostTimestamp timestamp={post.timestamp} />

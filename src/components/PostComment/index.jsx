@@ -5,8 +5,9 @@ import styles from './styles.less'
 
 const PostComment = ({ username, text }) => (
   <div className={styles.container}>
-    <div className={styles.username}>{username}</div>
-    <div className={styles.text}>{text}</div>
+    <span className={styles.username}>{username}</span>
+    &nbsp;
+    <span className={styles.text}>{text}</span>
   </div>
 )
 

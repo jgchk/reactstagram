@@ -10,6 +10,7 @@ const PostCommentBox = ({ onComment }) => {
   const onPost = e => {
     e.preventDefault()
     onComment(text)
+    setText('')
   }
   const onKeyPress = e => {
     if (e.key === 'Enter' && e.shiftKey === false) {
@@ -23,6 +24,7 @@ const PostCommentBox = ({ onComment }) => {
       <form className={styles.form} ref={form} onSubmit={onPost}>
         <textarea
           className={styles.input}
+          value={text}
           onChange={e => setText(e.target.value)}
           onKeyPress={onKeyPress}
           aria-label='Add a comment…'

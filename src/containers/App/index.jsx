@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-import { addUser } from '../../actions/users'
+import { addUser, login } from '../../actions/users'
 import { addPost } from '../../actions/posts'
 import { randomUser } from '../../model/user'
 import { randomPost } from '../../model/post'
@@ -17,10 +17,13 @@ const App = () => {
   // mock user and post
   const dispatch = useDispatch()
   const users = useSelector(state => state.get('users'))
-  if (users.size < 1) {
-    const user = randomUser()
-    const post = randomPost(user.id)
-    dispatch(addUser(user))
+  if (users.size === 0) {
+    const yourUser = randomUser()
+    const otherUser = randomUser()
+    const post = randomPost(otherUser.id)
+    dispatch(addUser(yourUser))
+    dispatch(login(yourUser))
+    dispatch(addUser(otherUser))
     dispatch(addPost(post))
   }
 
