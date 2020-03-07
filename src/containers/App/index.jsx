@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import 'focus-outline-manager'
 
 import { addUser, login } from '../../actions/users'
 import { addPost } from '../../actions/posts'
@@ -11,7 +12,8 @@ import Home from '../pages/Home'
 import Post from '../pages/Post'
 
 import '../../../res/styles/reset.less'
-import styles from './styles.less'
+import styles from './styles.module.less'
+import './styles.less'
 
 const App = () => {
   // mock user and post

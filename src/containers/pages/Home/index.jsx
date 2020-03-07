@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 import Post from '../../Post'
-import styles from './styles.less'
+import styles from './styles.module.less'
 
 const Home = () => {
   const posts = useSelector(state => state.get('posts'))

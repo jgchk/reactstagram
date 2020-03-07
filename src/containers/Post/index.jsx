@@ -7,7 +7,7 @@ import PostImage from '../../components/PostImage'
 import PostFooter from '../PostFooter'
 import PostModel from '../../model/post'
 
-import styles from './styles.less'
+import styles from './styles.module.less'
 
 const Post = ({ post }) => {
   const user = useSelector(state => state.getIn(['users', post.userId]))

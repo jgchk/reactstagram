@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
 
-import styles from './styles.less'
+import styles from './styles.module.less'
 
 const PostCommentBox = ({ onComment }) => {
   const [text, setText] = useState()

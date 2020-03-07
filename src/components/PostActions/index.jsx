@@ -2,12 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 
-import styles from './styles.less'
-
 import LikeIcon from '../../../res/svg/like.svg'
 import CommentIcon from '../../../res/svg/comment.svg'
 import ShareIcon from '../../../res/svg/share.svg'
 import SaveIcon from '../../../res/svg/save.svg'
+import styles from './styles.module.less'
 
 const PostActions = ({ onLike, onComment, onShare, onSave }) => {
   return (

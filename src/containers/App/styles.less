@@ -1,14 +1,7 @@
-@import '../../../res/styles/colors.less';
-@import '../../../res/styles/fonts.less';
-
-html, body, .base {
-	height: 100%
+html, body {
+	height: 100%;
 }
 
-.base {
-	color: @text;
-	font-size: @medium;
-	font-weight: @normal;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-	line-height: 18px;
+html.focus-outline-hidden *:focus {
+    outline: none;
 }

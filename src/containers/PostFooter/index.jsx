@@ -12,7 +12,7 @@ import PostCommentBox from '../../components/PostCommentBox'
 import { createComment } from '../../model/comment'
 import { addComment } from '../../actions/comments'
 
-import styles from './styles.less'
+import styles from './styles.module.less'
 
 const PostFooter = ({ post }) => {
   const comments = useSelector(state =>
