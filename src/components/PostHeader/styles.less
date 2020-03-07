@@ -1,0 +1,36 @@
+@import '../../../res/styles/colors.less';
+
+.header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+
+	height: 60px;
+	padding: 16px;
+	box-sizing: border-box;
+}
+
+.profile-pic {
+	width: 32px;
+	height: 32px;
+
+	border: 1px solid @border;
+	border-radius: 50%;
+	box-sizing: border-box;
+}
+
+.info {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+
+	margin-left: 16px;
+}
+
+.username {
+	font-weight: 600;
+}
+
+.location {
+	font-size: 12px;
+}

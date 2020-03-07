@@ -23,32 +23,45 @@ export function secondsBetween(a, b) {
   return timeBetween(a, b, oneSecond)
 }
 
-export function timeSince(date) {
+export function formatTime(amount, unit, long) {
+  let suffix = ''
+  if (long) {
+    suffix += ' '
+    suffix += unit.toLowerCase()
+    if (Math.abs(amount) !== 1) suffix += 's' // make plural for everything except 1 and -1
+    suffix += ' ago'
+  } else {
+    suffix = unit.charAt(0)
+  }
+  return `${amount}${suffix}`
+}
+
+export function timeSince(date, long = false) {
   const now = new Date()
 
   const days = daysBetween(now, date)
   if (days >= 365) {
     const years = Math.round(days / 365)
-    return `${years}y`
+    return formatTime(years, 'year', long)
   }
   if (days >= 7) {
     const weeks = Math.round(days / 7)
-    return `${weeks}w`
+    return formatTime(weeks, 'week', long)
   }
   if (days > 1) {
-    return `${days}d`
+    return formatTime(days, 'day', long)
   }
 
   const hours = hoursBetween(now, date)
   if (hours > 1) {
-    return `${hours}h`
+    return formatTime(hours, 'hour', long)
   }
 
   const minutes = minutesBetween(now, date)
   if (minutes > 1) {
-    return `${minutes}m`
+    return formatTime(minutes, 'minute', long)
   }
 
   const seconds = secondsBetween(now, date)
-  return `${seconds}s`
+  return formatTime(seconds, 'second', long)
 }

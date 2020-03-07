@@ -1,10 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import styles from './styles.less'
+
 const PostComment = ({ username, text }) => (
-  <div>
-    <div>{username}</div>
-    <div>{text}</div>
+  <div className={styles.container}>
+    <div className={styles.username}>{username}</div>
+    <div className={styles.text}>{text}</div>
   </div>
 )
 

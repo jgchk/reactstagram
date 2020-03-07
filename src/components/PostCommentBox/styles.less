@@ -1,0 +1,54 @@
+@import '../../../res/styles/colors.less';
+
+.container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	margin-top: 8px;
+	padding-left: 16px;
+	padding-right: 16px;
+	min-height: 56px;
+
+	border-top: 1px solid @lightBorder;
+}
+
+.form {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.input {
+	height: 18px;
+	max-height: 80px;
+	flex-grow: 1;
+
+	outline: 0;
+	resize: none;
+
+	background: none;
+	border: none;
+
+	line-height: 18px;
+}
+
+.input::placeholder {
+	color: @lightText;
+}
+
+.button {
+	background: none;
+	border: none;
+
+	color: @textButton;
+	font-weight: 600;
+
+	cursor: pointer;
+	user-select: none;
+}
+
+.button[disabled] {
+	opacity: 0.3;
+	pointer-events: none;
+}

@@ -9,6 +9,7 @@ import { dev } from './config'
 function createRootElement() {
   const rootEl = document.createElement('div')
   rootEl.classList.add('app')
+  rootEl.style = 'height: 100%'
   document.body.append(rootEl)
   return rootEl
 }

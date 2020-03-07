@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { timeSince } from '../lib/date'
+import { timeSince } from '../../lib/date'
+import styles from './styles.less'
 
 const PostTimestamp = ({ timestamp }) => {
-  return <div>{timeSince(timestamp)}</div>
+  return <div className={styles.timestamp}>{timeSince(timestamp, true)}</div>
 }
 
 PostTimestamp.propTypes = {

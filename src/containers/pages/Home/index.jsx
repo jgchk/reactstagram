@@ -1,13 +1,14 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import Post from '../Post'
+import Post from '../../Post'
+import styles from './styles.less'
 
 const Home = () => {
   const posts = useSelector(state => state.get('posts'))
 
   return (
-    <div>
+    <div className={styles.home}>
       {posts.valueSeq().map(post => (
         <Post key={post.id} post={post} />
       ))}

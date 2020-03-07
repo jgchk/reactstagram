@@ -1,12 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import styles from './styles.less'
+
 const PostHeader = ({ pictureUrl, username, location }) => (
-  <div>
-    <img src={pictureUrl} alt={username} />
-    <div>
-      <div>{username}</div>
-      <div>{location}</div>
+  <div className={styles.header}>
+    <img className={styles.profilePic} src={pictureUrl} alt={username} />
+    <div className={styles.info}>
+      <div className={styles.username}>{username}</div>
+      <div className={styles.location}>{location}</div>
     </div>
   </div>
 )
