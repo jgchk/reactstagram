@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -18,6 +18,7 @@ import styles from './styles.module.less'
 
 const PostFooter = ({ post }) => {
   const dispatch = useDispatch()
+  const commentBox = useRef(null)
 
   const comments = useSelector(state =>
     post.commentIds.map(id => state.getIn(['comments', id]))
@@ -34,7 +35,7 @@ const PostFooter = ({ post }) => {
         addLike(createLike(new Date(), currentUserId, post.id, Target.POST))
       )
   }
-  const onCommentButton = () => console.log('comment')
+  const onCommentButton = () => commentBox.current.focus()
   const onShare = () => console.log('share')
   const onSave = () => console.log('save')
   const onCommentBox = text => {
@@ -58,7 +59,7 @@ const PostFooter = ({ post }) => {
         ))}
       </div>
       <PostTimestamp timestamp={post.timestamp} />
-      <PostCommentBox onComment={onCommentBox} />
+      <PostCommentBox onComment={onCommentBox} ref={commentBox} />
     </div>
   )
 }

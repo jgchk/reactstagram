@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import styles from './styles.module.less'
 
-const PostCommentBox = ({ onComment }) => {
+const PostCommentBox = React.forwardRef(({ onComment }, input) => {
   const [text, setText] = useState()
   const form = useRef(null)
 
@@ -27,6 +27,7 @@ const PostCommentBox = ({ onComment }) => {
           value={text}
           onChange={e => setText(e.target.value)}
           onKeyPress={onKeyPress}
+          ref={input}
           aria-label='Add a comment…'
           placeholder='Add a comment…'
           autoComplete='off'
@@ -38,7 +39,7 @@ const PostCommentBox = ({ onComment }) => {
       </form>
     </div>
   )
-}
+})
 
 PostCommentBox.propTypes = {
   onComment: PropTypes.func.isRequired,
