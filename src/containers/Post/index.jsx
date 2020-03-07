@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 
@@ -12,12 +12,19 @@ import styles from './styles.module.less'
 const Post = ({ post }) => {
   const user = useSelector(state => state.getIn(['users', post.userId]))
 
+  const onClickPicture = useCallback(() => alert('show story/profile'), [])
+  const onClickUsername = useCallback(() => alert('show profile'), [])
+  const onClickLocation = useCallback(() => alert('show location'), [])
+
   return (
     <div className={styles.post}>
       <PostHeader
         pictureUrl={user.pictureUrl}
         username={user.username}
         location={post.location}
+        onClickPicture={onClickPicture}
+        onClickUsername={onClickUsername}
+        onClickLocation={onClickLocation}
       />
       <PostImage imageUrl={post.imageUrl} />
       <PostFooter post={post} />
