@@ -8,7 +8,11 @@ import monitorReducersEnhancer from './enhancers/monitorReducers'
 import loggerMiddleware from './middleware/logger'
 import rootReducer from './reducers'
 import { dev } from './config'
-import { chance as randomChance, integer as randomInt } from './lib/random'
+import {
+  chance as randomChance,
+  integer as randomInt,
+  choice as randomChoice,
+} from './lib/random'
 
 import { loadDatabase } from './actions/database'
 
@@ -20,6 +24,9 @@ import { randomPost } from './model/post'
 
 import { addComment } from './actions/comments'
 import { randomComment } from './model/comment'
+
+import { addLike } from './actions/likes'
+import { Target, randomLike } from './model/like'
 
 function initializeStore(store) {
   store.dispatch(loadDatabase())
@@ -50,6 +57,24 @@ function initializeStore(store) {
       const comment = randomComment(commentUser.id, post.id, post.timestamp)
       store.dispatch(addUser(commentUser))
       store.dispatch(addComment(comment))
+
+      const numLikes = randomInt(0, 3)
+      for (let j = 0; j < numLikes; j += 1) {
+        const likeUserId = randomChoice(
+          store
+            .getState()
+            .get('users')
+            .keySeq()
+            .toArray()
+        )
+        const like = randomLike(
+          comment.timestamp,
+          likeUserId,
+          comment.id,
+          Target.COMMENT
+        )
+        store.dispatch(addLike(like))
+      }
     }
   }
 }

@@ -1,6 +1,6 @@
 import { Record, fromJS } from 'immutable'
 
-import { uid } from '../lib/random'
+import { uid, dateSince as randomDateSince } from '../lib/random'
 
 const Like = Record({
   id: null,
@@ -30,6 +30,10 @@ export function createLike(timestamp, userId, targetId, targetType) {
     targetId,
     targetType,
   })
+}
+
+export function randomLike(targetDate, userId, targetId, targetType) {
+  return createLike(randomDateSince(targetDate), userId, targetId, targetType)
 }
 
 export default Like

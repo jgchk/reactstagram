@@ -43,9 +43,14 @@ export function float(min, max) {
 export function integer(min, max) {
   const minInt = Math.ceil(min)
   const maxInt = Math.floor(max)
-  return Math.floor(Math.random() * (maxInt - minInt + 1)) + minInt
+  return Math.floor(Math.random() * (maxInt - minInt)) + minInt
 }
 
 export function chance(probability = 0.5) {
   return Math.random() < probability
+}
+
+export function choice(array) {
+  const rand = integer(0, array.length)
+  return array[rand]
 }
