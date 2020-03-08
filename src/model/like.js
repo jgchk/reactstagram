@@ -25,7 +25,7 @@ export const Target = {
 export function createLike(timestamp, userId, targetId, targetType) {
   return Like({
     id: uid(),
-    timestamp,
+    timestamp: Number(timestamp),
     userId,
     targetId,
     targetType,

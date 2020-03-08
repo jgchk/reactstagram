@@ -36,7 +36,7 @@ export function createPost(imageUrl, location, timestamp, userId) {
     id: uid(),
     imageUrl,
     location,
-    timestamp,
+    timestamp: Number(timestamp),
     userId,
   })
 }

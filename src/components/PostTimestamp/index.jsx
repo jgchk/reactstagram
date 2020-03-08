@@ -6,18 +6,22 @@ import { timeSince } from '../../lib/date'
 import styles from './styles.module.less'
 import common from '../../../res/styles/common.module.less'
 
-const PostTimestamp = ({ timestamp, onClick }) => (
-  <button
-    type='button'
-    className={clsx(common.textButton, styles.timestamp)}
-    onClick={onClick}
-  >
-    {timeSince(timestamp, true)}
-  </button>
-)
+const PostTimestamp = ({ timestamp, onClick }) => {
+  const date = typeof timestamp === 'number' ? new Date(timestamp) : timestamp
+  return (
+    <button
+      type='button'
+      className={clsx(common.textButton, styles.timestamp)}
+      onClick={onClick}
+    >
+      {timeSince(date, true)}
+    </button>
+  )
+}
 
 PostTimestamp.propTypes = {
-  timestamp: PropTypes.instanceOf(Date).isRequired,
+  timestamp: PropTypes.oneOfType([PropTypes.number, PropTypes.instanceOf(Date)])
+    .isRequired,
   onClick: PropTypes.func.isRequired,
 }
 

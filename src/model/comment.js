@@ -40,7 +40,7 @@ export function createComment(
   return Comment({
     id: uid(),
     text,
-    timestamp,
+    timestamp: Number(timestamp),
     userId,
     postId,
     isPostDescription,
