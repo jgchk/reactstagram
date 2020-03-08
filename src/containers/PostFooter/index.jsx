@@ -11,30 +11,17 @@ import PostCommentBox from '../../components/PostCommentBox'
 
 import { createComment } from '../../model/comment'
 import { addComment } from '../../actions/comments'
-import { createLike, Target } from '../../model/like'
-import { addLike, removeLike } from '../../actions/likes'
 
 import styles from './styles.module.less'
 
-const PostFooter = ({ post }) => {
+const PostFooter = ({ post, currentUserId, liked, onLike }) => {
   const dispatch = useDispatch()
   const commentBox = useRef(null)
 
   const comments = useSelector(state =>
     post.commentIds.map(id => state.getIn(['comments', id]))
   )
-  const currentUserId = useSelector(state => state.get('currentUserId'))
-  const like = useSelector(state =>
-    state.get('likes').find(l => l.userId === currentUserId)
-  )
 
-  const onLike = useCallback(() => {
-    if (like) dispatch(removeLike(like))
-    else
-      dispatch(
-        addLike(createLike(new Date(), currentUserId, post.id, Target.POST))
-      )
-  }, [like, currentUserId, post.id, dispatch])
   const onCommentButton = useCallback(() => commentBox.current.focus(), [
     commentBox,
   ])
@@ -51,7 +38,7 @@ const PostFooter = ({ post }) => {
   return (
     <div>
       <PostActions
-        liked={!!like}
+        liked={liked}
         onLike={onLike}
         onComment={onCommentButton}
         onShare={onShare}
@@ -71,6 +58,9 @@ const PostFooter = ({ post }) => {
 
 PostFooter.propTypes = {
   post: PropTypes.instanceOf(Post).isRequired,
+  currentUserId: PropTypes.string.isRequired,
+  liked: PropTypes.bool.isRequired,
+  onLike: PropTypes.func.isRequired,
 }
 
 export default PostFooter

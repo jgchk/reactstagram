@@ -1,3 +1,49 @@
+button.image-button {
+	position: relative;
+	padding: 0;
+	cursor: default;
+}
+
 .image {
 	width: 100%;
+}
+
+.like-icon-container {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.like-icon {
+	opacity: 0;
+}
+
+.animate {
+	animation-name: like;
+	animation-duration: 1s;
+	animation-timing-function: ease-in-out;
+}
+
+@keyframes like {
+	0%, to {
+		opacity: 0;
+		transform: scale(0)
+	}
+	15% {
+		opacity: .9;
+		transform: scale(1.2)
+	}
+	30% {
+		transform: scale(.95)
+	}
+	45%, 80% {
+		opacity: .9;
+		transform: scale(1)
+	}
 }
