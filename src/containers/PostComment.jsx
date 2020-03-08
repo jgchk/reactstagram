@@ -37,6 +37,10 @@ const PostComment = ({ comment }) => {
     },
     [like, currentUserId, comment.id, dispatch]
   )
+  const onClickUsername = useCallback(
+    () => alert(`show ${user.username} profile`),
+    [user.username]
+  )
 
   return (
     <PostCommentComponent
@@ -44,6 +48,7 @@ const PostComment = ({ comment }) => {
       text={comment.text}
       liked={!!like}
       onLike={onLike}
+      onClickUsername={onClickUsername}
     />
   )
 }

@@ -8,7 +8,7 @@ import SmallLikedIcon from '../../../res/svg/liked-small.svg'
 import styles from './styles.module.less'
 import common from '../../../res/styles/common.module.less'
 
-const PostComment = ({ username, text, liked, onLike }) => {
+const PostComment = ({ username, text, liked, onLike, onClickUsername }) => {
   const [animating, setAnimating] = useState(false)
 
   const onClickLike = useCallback(() => {
@@ -19,9 +19,15 @@ const PostComment = ({ username, text, liked, onLike }) => {
   return (
     <div className={styles.container}>
       <div className={styles.textContainer}>
-        <span className={styles.username}>{username}</span>
+        <button
+          type='button'
+          className={clsx(common.textButton, common.bold, common.username)}
+          onClick={onClickUsername}
+        >
+          {username}
+        </button>
         &nbsp;
-        <span className={styles.text}>{text}</span>
+        <span>{text}</span>
       </div>
       <button
         type='button'
@@ -44,6 +50,7 @@ PostComment.propTypes = {
   text: PropTypes.string.isRequired,
   liked: PropTypes.bool.isRequired,
   onLike: PropTypes.func.isRequired,
+  onClickUsername: PropTypes.func.isRequired,
 }
 
 export default PostComment
