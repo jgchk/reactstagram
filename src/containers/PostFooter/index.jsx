@@ -35,6 +35,7 @@ const PostFooter = ({ post, currentUserId, liked, onLike }) => {
     [currentUserId, post, dispatch]
   )
   const onClickLikes = useCallback(() => alert('show likes list'), [])
+  const onClickTimestamp = useCallback(() => alert('show post page'), [])
 
   return (
     <div>
@@ -51,7 +52,7 @@ const PostFooter = ({ post, currentUserId, liked, onLike }) => {
           <PostComment key={comment.id} comment={comment} />
         ))}
       </div>
-      <PostTimestamp timestamp={post.timestamp} />
+      <PostTimestamp timestamp={post.timestamp} onClick={onClickTimestamp} />
       <PostCommentBox onComment={onCommentBox} ref={commentBox} />
     </div>
   )
