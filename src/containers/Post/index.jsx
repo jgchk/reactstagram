@@ -15,6 +15,7 @@ const Post = ({ post }) => {
   const onClickPicture = useCallback(() => alert('show story/profile'), [])
   const onClickUsername = useCallback(() => alert('show profile'), [])
   const onClickLocation = useCallback(() => alert('show location'), [])
+  const onClickMore = useCallback(() => alert('show more options'), [])
 
   return (
     <div className={styles.post}>
@@ -25,6 +26,7 @@ const Post = ({ post }) => {
         onClickPicture={onClickPicture}
         onClickUsername={onClickUsername}
         onClickLocation={onClickLocation}
+        onClickMore={onClickMore}
       />
       <PostImage imageUrl={post.imageUrl} />
       <PostFooter post={post} />

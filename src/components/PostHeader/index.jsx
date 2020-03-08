@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 
+import MoreIcon from '../../../res/svg/more.svg'
 import styles from './styles.module.less'
 
 const PostHeader = ({
@@ -11,6 +12,7 @@ const PostHeader = ({
   onClickPicture,
   onClickUsername,
   onClickLocation,
+  onClickMore,
 }) => (
   <div className={styles.header}>
     <button type='button' className={styles.button} onClick={onClickPicture}>
@@ -32,6 +34,13 @@ const PostHeader = ({
         {location}
       </button>
     </div>
+    <button
+      className={clsx(styles.more, styles.button)}
+      type='button'
+      onClick={onClickMore}
+    >
+      <MoreIcon />
+    </button>
   </div>
 )
 
@@ -42,6 +51,7 @@ PostHeader.propTypes = {
   onClickPicture: PropTypes.func.isRequired,
   onClickUsername: PropTypes.func.isRequired,
   onClickLocation: PropTypes.func.isRequired,
+  onClickMore: PropTypes.func.isRequired,
 }
 
 export default PostHeader
