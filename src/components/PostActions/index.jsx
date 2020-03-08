@@ -16,7 +16,7 @@ const PostActions = ({ liked, onLike, onComment, onShare, onSave }) => {
   const onClickLike = useCallback(() => {
     setAnimating(true)
     onLike()
-  }, [])
+  }, [onLike])
 
   return (
     <div className={styles.container}>

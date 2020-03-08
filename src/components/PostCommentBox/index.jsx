@@ -9,11 +9,14 @@ const PostCommentBox = React.forwardRef(({ onComment }, input) => {
   const [text, setText] = useState()
   const form = useRef(null)
 
-  const onPost = useCallback(e => {
-    e.preventDefault()
-    onComment(text)
-    setText('')
-  }, [])
+  const onPost = useCallback(
+    e => {
+      e.preventDefault()
+      onComment(text)
+      setText('')
+    },
+    [onComment, text]
+  )
   const onKeyPress = useCallback(e => {
     if (e.key === 'Enter' && e.shiftKey === false) {
       e.preventDefault()

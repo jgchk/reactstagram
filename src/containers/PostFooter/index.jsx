@@ -34,14 +34,19 @@ const PostFooter = ({ post }) => {
       dispatch(
         addLike(createLike(new Date(), currentUserId, post.id, Target.POST))
       )
-  }, [])
-  const onCommentButton = useCallback(() => commentBox.current.focus(), [])
+  }, [like, currentUserId, post.id, dispatch])
+  const onCommentButton = useCallback(() => commentBox.current.focus(), [
+    commentBox,
+  ])
   const onShare = useCallback(() => alert('share'), [])
   const onSave = useCallback(() => alert('save'), [])
-  const onCommentBox = useCallback(text => {
-    const comment = createComment(text, new Date(), currentUserId, post.id)
-    dispatch(addComment(comment))
-  }, [])
+  const onCommentBox = useCallback(
+    text => {
+      const comment = createComment(text, new Date(), currentUserId, post.id)
+      dispatch(addComment(comment))
+    },
+    [currentUserId, post, dispatch]
+  )
 
   return (
     <div>
