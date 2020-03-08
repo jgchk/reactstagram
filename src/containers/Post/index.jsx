@@ -16,7 +16,14 @@ const Post = ({ post }) => {
   const user = useSelector(state => state.getIn(['users', post.userId]))
   const currentUserId = useSelector(state => state.get('currentUserId'))
   const like = useSelector(state =>
-    state.get('likes').find(l => l.userId === currentUserId)
+    state
+      .get('likes')
+      .find(
+        l =>
+          l.targetType === Target.POST &&
+          l.targetId === post.id &&
+          l.userId === currentUserId
+      )
   )
 
   const onClickPicture = useCallback(() => alert('show story/profile'), [])
