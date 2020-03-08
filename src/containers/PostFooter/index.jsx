@@ -34,6 +34,7 @@ const PostFooter = ({ post, currentUserId, liked, onLike }) => {
     },
     [currentUserId, post, dispatch]
   )
+  const onClickLikes = useCallback(() => alert('show likes list'), [])
 
   return (
     <div>
@@ -44,7 +45,7 @@ const PostFooter = ({ post, currentUserId, liked, onLike }) => {
         onShare={onShare}
         onSave={onSave}
       />
-      <PostLikes likes={post.likeIds.size} />
+      <PostLikes likes={post.likeIds.size} onClick={onClickLikes} />
       <div className={styles.comments}>
         {comments.valueSeq().map(comment => (
           <PostComment key={comment.id} comment={comment} />
