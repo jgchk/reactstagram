@@ -22,7 +22,7 @@ const PostHeader = ({
     <div className={styles.info}>
       <button
         type='button'
-        className={clsx(styles.username, common.button, styles.textButton)}
+        className={clsx(common.button, styles.username, styles.textButton)}
         onClick={onClickUsername}
       >
         {username}
