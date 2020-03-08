@@ -5,3 +5,15 @@
 	font-size: 0;
 	cursor: pointer;
 }
+
+.animate-like {
+	animation-name: like;
+	animation-duration: 0.45s;
+	animation-timing-function: ease-in-out;
+}
+
+@keyframes like {
+    0%, to { transform: scale(1) }
+	25% { transform: scale(1.2) }
+	50% { transform: scale(0.95) }
+}

@@ -28,7 +28,7 @@ const PostComment = ({ username, text, liked, onLike }) => {
         className={clsx(
           common.button,
           styles.likeButton,
-          animating && styles.animate
+          animating && common.animateLike
         )}
         onClick={onClickLike}
         onAnimationEnd={() => setAnimating(false)}

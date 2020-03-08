@@ -7,6 +7,7 @@ import LikedIcon from '../../../res/svg/liked.svg'
 import CommentIcon from '../../../res/svg/comment.svg'
 import ShareIcon from '../../../res/svg/share.svg'
 import SaveIcon from '../../../res/svg/save.svg'
+
 import styles from './styles.module.less'
 import common from '../../../res/styles/common.module.less'
 
@@ -24,7 +25,7 @@ const PostActions = ({ liked, onLike, onComment, onShare, onSave }) => {
         className={clsx(
           common.button,
           styles.firstButton,
-          animating && styles.animate
+          animating && common.animateLike
         )}
         type='button'
         onClick={onClickLike}
