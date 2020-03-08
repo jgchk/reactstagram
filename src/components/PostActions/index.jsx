@@ -8,6 +8,7 @@ import CommentIcon from '../../../res/svg/comment.svg'
 import ShareIcon from '../../../res/svg/share.svg'
 import SaveIcon from '../../../res/svg/save.svg'
 import styles from './styles.module.less'
+import common from '../../../res/styles/common.module.less'
 
 const PostActions = ({ liked, onLike, onComment, onShare, onSave }) => {
   const [animating, setAnimating] = useState(false)
@@ -21,7 +22,7 @@ const PostActions = ({ liked, onLike, onComment, onShare, onSave }) => {
     <div className={styles.container}>
       <button
         className={clsx(
-          styles.button,
+          common.button,
           styles.firstButton,
           animating && styles.animate
         )}
@@ -31,14 +32,14 @@ const PostActions = ({ liked, onLike, onComment, onShare, onSave }) => {
       >
         {liked ? <LikedIcon /> : <LikeIcon />}
       </button>
-      <button className={styles.button} type='button' onClick={onComment}>
+      <button className={common.button} type='button' onClick={onComment}>
         <CommentIcon />
       </button>
-      <button className={styles.button} type='button' onClick={onShare}>
+      <button className={common.button} type='button' onClick={onShare}>
         <ShareIcon />
       </button>
       <button
-        className={clsx(styles.button, styles.saveButton)}
+        className={clsx(common.button, styles.saveButton)}
         type='button'
         onClick={onSave}
       >

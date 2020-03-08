@@ -4,6 +4,7 @@ import clsx from 'clsx'
 
 import MoreIcon from '../../../res/svg/more.svg'
 import styles from './styles.module.less'
+import common from '../../../res/styles/common.module.less'
 
 const PostHeader = ({
   pictureUrl,
@@ -15,27 +16,27 @@ const PostHeader = ({
   onClickMore,
 }) => (
   <div className={styles.header}>
-    <button type='button' className={styles.button} onClick={onClickPicture}>
+    <button type='button' className={common.button} onClick={onClickPicture}>
       <img className={styles.profilePic} src={pictureUrl} alt={username} />
     </button>
     <div className={styles.info}>
       <button
         type='button'
-        className={clsx(styles.username, styles.button)}
+        className={clsx(styles.username, common.button, styles.textButton)}
         onClick={onClickUsername}
       >
         {username}
       </button>
       <button
         type='button'
-        className={clsx(styles.location, styles.button)}
+        className={clsx(styles.location, common.button, styles.textButton)}
         onClick={onClickLocation}
       >
         {location}
       </button>
     </div>
     <button
-      className={clsx(styles.more, styles.button)}
+      className={clsx(styles.more, common.button)}
       type='button'
       onClick={onClickMore}
     >

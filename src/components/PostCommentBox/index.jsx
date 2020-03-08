@@ -1,7 +1,9 @@
 import React, { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
+import clsx from 'clsx'
 
 import styles from './styles.module.less'
+import common from '../../../res/styles/common.module.less'
 
 const PostCommentBox = React.forwardRef(({ onComment }, input) => {
   const [text, setText] = useState()
@@ -33,7 +35,11 @@ const PostCommentBox = React.forwardRef(({ onComment }, input) => {
           autoComplete='off'
           autoCorrect='off'
         />
-        <button className={styles.button} type='submit' disabled={!text}>
+        <button
+          className={clsx(common.button, styles.button)}
+          type='submit'
+          disabled={!text}
+        >
           Post
         </button>
       </form>
