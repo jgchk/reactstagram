@@ -8,6 +8,12 @@ export const { addUser, login, logout } = createActions({
     db.add(user)
     return { user }
   },
-  LOGIN: user => ({ user }),
-  LOGOUT: () => ({}),
+  LOGIN: user => {
+    db.login(user)
+    return { user }
+  },
+  LOGOUT: () => {
+    db.logout()
+    return {}
+  },
 })

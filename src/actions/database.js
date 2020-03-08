@@ -14,6 +14,7 @@ export const { loadDatabase } = createActions({
     const posts = postDb.all()
     const comments = commentDb.all()
     const likes = likeDb.all()
-    return { users, posts, comments, likes }
+    const currentUserId = userDb.currentUserId()
+    return { users, posts, comments, likes, currentUserId }
   },
 })

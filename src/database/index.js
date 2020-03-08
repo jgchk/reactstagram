@@ -11,6 +11,8 @@ const postIds = 'posts'
 const commentIds = 'comments'
 const likeIds = 'likes'
 
+const currentUserId = 'currentUserId'
+
 export const users = {
   add: user => {
     db.set(user.id, user.toJS())
@@ -28,6 +30,13 @@ export const users = {
         return [id, user]
       })
     )
+  },
+  currentUserId: () => db.get(currentUserId),
+  login: user => {
+    db.set(currentUserId, user.id)
+  },
+  logout: () => {
+    db.set(currentUserId, null)
   },
 }
 

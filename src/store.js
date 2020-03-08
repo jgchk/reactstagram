@@ -28,17 +28,45 @@ import { randomComment } from './model/comment'
 import { addLike } from './actions/likes'
 import { Target, randomLike } from './model/like'
 
+function randomExistingUser(store) {
+  return randomChoice(
+    store
+      .getState()
+      .get('users')
+      .valueSeq()
+      .toArray()
+  )
+}
+
 function initializeStore(store) {
   store.dispatch(loadDatabase())
 
-  const you = randomUser()
-  store.dispatch(addUser(you))
+  let you
+  const currentUserId = store.getState().get('currentUserId')
+  if (currentUserId !== null) {
+    you = store.getState().getIn(['users', currentUserId])
+  } else if (store.getState().get('users').size < 1) {
+    you = randomUser()
+    store.dispatch(addUser(you))
+  } else {
+    you = randomExistingUser(store)
+  }
   store.dispatch(login(you))
 
-  if (store.getState().get('posts').size === 0) {
-    const postUser = randomUser()
+  if (store.getState().get('posts').size < 1) {
+    let postUser
+    const otherUsers = store
+      .getState()
+      .get('users')
+      .filter(user => user.id !== you.id)
+    if (otherUsers.size < 1) {
+      postUser = randomUser()
+      store.dispatch(addUser(postUser))
+    } else {
+      postUser = randomChoice(otherUsers.valueSeq().toArray())
+    }
+
     const post = randomPost(postUser.id)
-    store.dispatch(addUser(postUser))
     store.dispatch(addPost(post))
 
     if (randomChance(0.75)) {
@@ -51,30 +79,38 @@ function initializeStore(store) {
       store.dispatch(addComment(description))
     }
 
-    const numComments = randomInt(0, 10)
-    for (let i = 0; i < numComments; i += 1) {
-      const commentUser = randomUser()
-      const comment = randomComment(commentUser.id, post.id, post.timestamp)
-      store.dispatch(addUser(commentUser))
-      store.dispatch(addComment(comment))
+    const comments = []
 
-      const numLikes = randomInt(0, 3)
-      for (let j = 0; j < numLikes; j += 1) {
-        const likeUserId = randomChoice(
-          store
-            .getState()
-            .get('users')
-            .keySeq()
-            .toArray()
-        )
-        const like = randomLike(
-          comment.timestamp,
-          likeUserId,
-          comment.id,
-          Target.COMMENT
-        )
+    const numViewers = randomInt(0, 20)
+    for (let i = 0; i < numViewers; i += 1) {
+      const viewer = randomUser()
+      store.dispatch(addUser(viewer))
+
+      // like the post
+      if (randomChance(0.6)) {
+        const like = randomLike(post.timestamp, viewer.id, post.id, Target.POST)
         store.dispatch(addLike(like))
       }
+
+      // leave a comment
+      if (randomChance(0.3)) {
+        const comment = randomComment(viewer.id, post.id, post.timestamp)
+        comments.push(comment)
+        store.dispatch(addComment(comment))
+      }
+
+      // like some comments
+      comments.forEach(comment => {
+        if (randomChance(0.3)) {
+          const like = randomLike(
+            comment.timestamp,
+            viewer.id,
+            comment.id,
+            Target.COMMENT
+          )
+          store.dispatch(addLike(like))
+        }
+      })
     }
   }
 }
