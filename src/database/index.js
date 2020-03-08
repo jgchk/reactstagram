@@ -1,4 +1,10 @@
+import { Map } from 'immutable'
+
 import * as db from './local-storage'
+import User from '../model/user'
+import Post from '../model/post'
+import Comment from '../model/comment'
+import Like from '../model/like'
 
 const userIds = 'users'
 const postIds = 'posts'
@@ -14,6 +20,15 @@ export const users = {
     db.remove(user.id)
     db.del(userIds, user.id)
   },
+  all: () => {
+    const ids = db.get(userIds, [])
+    return Map(
+      ids.map(id => {
+        const user = User.fromJS(db.get(id))
+        return [id, user]
+      })
+    )
+  },
 }
 
 export const posts = {
@@ -24,6 +39,15 @@ export const posts = {
   remove: post => {
     db.remove(post.id)
     db.del(postIds, post.id)
+  },
+  all: () => {
+    const ids = db.get(postIds, [])
+    return Map(
+      ids.map(id => {
+        const post = Post.fromJS(db.get(id))
+        return [id, post]
+      })
+    )
   },
 }
 
@@ -36,6 +60,15 @@ export const comments = {
     db.remove(comment.id)
     db.del(commentIds, comment.id)
   },
+  all: () => {
+    const ids = db.get(commentIds, [])
+    return Map(
+      ids.map(id => {
+        const comment = Comment.fromJS(db.get(id))
+        return [id, comment]
+      })
+    )
+  },
 }
 
 export const likes = {
@@ -47,8 +80,13 @@ export const likes = {
     db.remove(like.id)
     db.del(likeIds, like.id)
   },
+  all: () => {
+    const ids = db.get(likeIds, [])
+    return Map(
+      ids.map(id => {
+        const like = Like.fromJS(db.get(id))
+        return [id, like]
+      })
+    )
+  },
 }
-
-// reset db each run, for mocking purposes
-// wouldn't do this in production
-db.clear()

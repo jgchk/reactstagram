@@ -17,6 +17,7 @@ export default handleActions(
       state.updateIn([like.userId, 'likeIds'], ids => ids.add(like.id)),
     REMOVE_LIKE: (state, { payload: { like } }) =>
       state.updateIn([like.userId, 'likeIds'], ids => ids.delete(like.id)),
+    LOAD_DATABASE: (state, { payload: { users } }) => state.merge(users),
   },
   defaultState
 )

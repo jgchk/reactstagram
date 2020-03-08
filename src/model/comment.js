@@ -1,4 +1,6 @@
-import { Record, Set } from 'immutable'
+import { Record, Set, fromJS } from 'immutable'
+
+import { defaultReviver } from '../lib/immutable'
 
 import {
   uid,
@@ -15,6 +17,18 @@ const Comment = Record({
   likeIds: Set(),
   isPostDescription: false,
 })
+
+Comment.fromJS = data => {
+  const comment = Comment(
+    fromJS(data, (key, value) => {
+      if (key === 'likeIds') return value.toSet()
+      return defaultReviver(key, value)
+    })
+  )
+  if (typeof comment.timestamp === 'string')
+    return comment.set('timestamp', new Date(comment.timestamp))
+  return comment
+}
 
 export function createComment(
   text,
@@ -41,7 +55,7 @@ export function randomComment(
 ) {
   return createComment(
     randomSentence(),
-    randomDateSince(postDate),
+    isPostDescription ? postDate : randomDateSince(postDate),
     userId,
     postId,
     isPostDescription

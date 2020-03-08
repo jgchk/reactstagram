@@ -1,4 +1,4 @@
-import { Record } from 'immutable'
+import { Record, fromJS } from 'immutable'
 
 import { uid } from '../lib/random'
 
@@ -9,6 +9,13 @@ const Like = Record({
   targetId: null,
   targetType: null,
 })
+
+Like.fromJS = data => {
+  const like = Like(fromJS(data))
+  if (typeof like.timestamp === 'string')
+    return like.set('timestamp', new Date(like.timestamp))
+  return like
+}
 
 export const Target = {
   POST: 'post',

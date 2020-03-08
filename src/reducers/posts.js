@@ -22,6 +22,7 @@ export default handleActions(
         ids.delete(like.id)
       )
     },
+    LOAD_DATABASE: (state, { payload: { posts } }) => state.merge(posts),
   },
   defaultState
 )

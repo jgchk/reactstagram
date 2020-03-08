@@ -1,6 +1,7 @@
 import generate from 'nanoid/generate'
 import faker from 'faker'
-import txtgen from 'txtgen'
+
+export { sentence } from 'txtgen'
 
 export function uid(
   alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
@@ -21,10 +22,6 @@ export function profileImage() {
   return faker.image.avatar()
 }
 
-export function sentence() {
-  return txtgen.sentence()
-}
-
 export function location() {
   const city = faker.address.city()
   const state = faker.address.stateAbbr()
@@ -37,4 +34,18 @@ export function recentDate() {
 
 export function dateSince(startDate) {
   return faker.date.between(startDate, new Date())
+}
+
+export function float(min, max) {
+  return Math.random() * (max - min) + min
+}
+
+export function integer(min, max) {
+  const minInt = Math.ceil(min)
+  const maxInt = Math.floor(max)
+  return Math.floor(Math.random() * (maxInt - minInt + 1)) + minInt
+}
+
+export function chance(probability = 0.5) {
+  return Math.random() < probability
 }

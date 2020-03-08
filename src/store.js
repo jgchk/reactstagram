@@ -8,6 +8,51 @@ import monitorReducersEnhancer from './enhancers/monitorReducers'
 import loggerMiddleware from './middleware/logger'
 import rootReducer from './reducers'
 import { dev } from './config'
+import { chance as randomChance, integer as randomInt } from './lib/random'
+
+import { loadDatabase } from './actions/database'
+
+import { addUser, login } from './actions/users'
+import { randomUser } from './model/user'
+
+import { addPost } from './actions/posts'
+import { randomPost } from './model/post'
+
+import { addComment } from './actions/comments'
+import { randomComment } from './model/comment'
+
+function initializeStore(store) {
+  store.dispatch(loadDatabase())
+
+  const you = randomUser()
+  store.dispatch(addUser(you))
+  store.dispatch(login(you))
+
+  if (store.getState().get('posts').size === 0) {
+    const postUser = randomUser()
+    const post = randomPost(postUser.id)
+    store.dispatch(addUser(postUser))
+    store.dispatch(addPost(post))
+
+    if (randomChance(0.75)) {
+      const description = randomComment(
+        postUser.id,
+        post.id,
+        post.timestamp,
+        true
+      )
+      store.dispatch(addComment(description))
+    }
+
+    const numComments = randomInt(0, 10)
+    for (let i = 0; i < numComments; i += 1) {
+      const commentUser = randomUser()
+      const comment = randomComment(commentUser.id, post.id, post.timestamp)
+      store.dispatch(addUser(commentUser))
+      store.dispatch(addComment(comment))
+    }
+  }
+}
 
 export default function configureStore(preloadedState) {
   const middlewares = [loggerMiddleware, thunkMiddleware]
@@ -17,6 +62,7 @@ export default function configureStore(preloadedState) {
   const composedEnhancers = composeWithDevTools(...enhancers)
 
   const store = createStore(rootReducer, preloadedState, composedEnhancers)
+  initializeStore(store)
 
   if (dev && module.hot) {
     module.hot.accept('./reducers', () => store.replaceReducer(rootReducer))
