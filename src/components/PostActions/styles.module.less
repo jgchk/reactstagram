@@ -9,9 +9,8 @@
 
 .animate {
 	animation-name: like;
-	animation-duration: 0.4s;
+	animation-duration: 0.45s;
 	animation-timing-function: ease-in-out;
-	animation-direction: normal;
 }
 
 .first-button {
@@ -24,8 +23,7 @@
 }
 
 @keyframes like {
-    0% { transform: scale(1) }
-	33% { transform: scale(1.2) }
-	67% { transform: scale(0.95) }
-	100% { transform: scale(1) }
+    0%, to { transform: scale(1) }
+	25% { transform: scale(1.2) }
+	50% { transform: scale(0.95) }
 }
