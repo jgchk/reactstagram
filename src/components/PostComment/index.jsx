@@ -8,7 +8,14 @@ import SmallLikedIcon from '../../../res/svg/liked-small.svg'
 import styles from './styles.module.less'
 import common from '../../../res/styles/common.module.less'
 
-const PostComment = ({ username, text, liked, onLike, onClickUsername }) => {
+const PostComment = ({
+  username,
+  text,
+  isPostDescription,
+  liked,
+  onLike,
+  onClickUsername,
+}) => {
   const [animating, setAnimating] = useState(false)
 
   const onClickLike = useCallback(() => {
@@ -29,18 +36,20 @@ const PostComment = ({ username, text, liked, onLike, onClickUsername }) => {
         &nbsp;
         <span>{text}</span>
       </div>
-      <button
-        type='button'
-        className={clsx(
-          common.button,
-          styles.likeButton,
-          animating && common.animateLike
-        )}
-        onClick={onClickLike}
-        onAnimationEnd={() => setAnimating(false)}
-      >
-        {liked ? <SmallLikedIcon /> : <SmallLikeIcon />}
-      </button>
+      {!isPostDescription && (
+        <button
+          type='button'
+          className={clsx(
+            common.button,
+            styles.likeButton,
+            animating && common.animateLike
+          )}
+          onClick={onClickLike}
+          onAnimationEnd={() => setAnimating(false)}
+        >
+          {liked ? <SmallLikedIcon /> : <SmallLikeIcon />}
+        </button>
+      )}
     </div>
   )
 }
@@ -48,6 +57,7 @@ const PostComment = ({ username, text, liked, onLike, onClickUsername }) => {
 PostComment.propTypes = {
   username: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
+  isPostDescription: PropTypes.bool.isRequired,
   liked: PropTypes.bool.isRequired,
   onLike: PropTypes.func.isRequired,
   onClickUsername: PropTypes.func.isRequired,

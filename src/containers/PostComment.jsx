@@ -46,6 +46,7 @@ const PostComment = ({ comment }) => {
     <PostCommentComponent
       username={user.username}
       text={comment.text}
+      isPostDescription={comment.isPostDescription}
       liked={!!like}
       onLike={onLike}
       onClickUsername={onClickUsername}
