@@ -26,9 +26,18 @@ const Post = ({ post }) => {
       )
   )
 
-  const onClickPicture = useCallback(() => alert('show story/profile'), [])
-  const onClickUsername = useCallback(() => alert('show profile'), [])
-  const onClickLocation = useCallback(() => alert('show location'), [])
+  const onClickPicture = useCallback(
+    () => alert(`show ${user.username} story/profile`),
+    [user.username]
+  )
+  const onClickUsername = useCallback(
+    () => alert(`show ${user.username} profile`),
+    [user.username]
+  )
+  const onClickLocation = useCallback(
+    () => alert(`show ${post.location} location`),
+    [post.location]
+  )
   const onClickMore = useCallback(() => alert('show more options'), [])
 
   const onLike = useCallback(
