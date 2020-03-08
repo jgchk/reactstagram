@@ -13,24 +13,38 @@ const Comment = Record({
   userId: null,
   postId: null,
   likeIds: Set(),
+  isPostDescription: false,
 })
 
-export function createComment(text, timestamp, userId, postId) {
+export function createComment(
+  text,
+  timestamp,
+  userId,
+  postId,
+  isPostDescription = false
+) {
   return Comment({
     id: uid(),
     text,
     timestamp,
     userId,
     postId,
+    isPostDescription,
   })
 }
 
-export function randomComment(userId, postId, postDate) {
+export function randomComment(
+  userId,
+  postId,
+  postDate,
+  isPostDescription = false
+) {
   return createComment(
     randomSentence(),
     randomDateSince(postDate),
     userId,
-    postId
+    postId,
+    isPostDescription
   )
 }
 

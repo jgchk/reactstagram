@@ -1,26 +1,20 @@
 import React, { useRef, useCallback } from 'react'
 import PropTypes from 'prop-types'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
-import Post from '../../model/post'
-import PostActions from '../../components/PostActions'
-import PostLikes from '../../components/PostLikes'
-import PostComment from '../PostComment'
-import PostTimestamp from '../../components/PostTimestamp'
-import PostCommentBox from '../../components/PostCommentBox'
+import Post from '../model/post'
+import PostActions from '../components/PostActions'
+import PostLikes from '../components/PostLikes'
+import PostTimestamp from '../components/PostTimestamp'
+import PostComments from './PostComments'
+import PostCommentBox from '../components/PostCommentBox'
 
-import { createComment } from '../../model/comment'
-import { addComment } from '../../actions/comments'
-
-import styles from './styles.module.less'
+import { createComment } from '../model/comment'
+import { addComment } from '../actions/comments'
 
 const PostFooter = ({ post, currentUserId, liked, onLike }) => {
   const dispatch = useDispatch()
   const commentBox = useRef(null)
-
-  const comments = useSelector(state =>
-    post.commentIds.map(id => state.getIn(['comments', id]))
-  )
 
   const onCommentButton = useCallback(() => commentBox.current.focus(), [
     commentBox,
@@ -47,11 +41,7 @@ const PostFooter = ({ post, currentUserId, liked, onLike }) => {
         onSave={onSave}
       />
       <PostLikes likes={post.likeIds.size} onClick={onClickLikes} />
-      <div className={styles.comments}>
-        {comments.valueSeq().map(comment => (
-          <PostComment key={comment.id} comment={comment} />
-        ))}
-      </div>
+      <PostComments post={post} />
       <PostTimestamp timestamp={post.timestamp} onClick={onClickTimestamp} />
       <PostCommentBox onComment={onCommentBox} ref={commentBox} />
     </div>
