@@ -1,9 +1,27 @@
+@import './fonts.less';
+
 .button {
 	background: none;
 	border: none;
 	padding: 8px;
 	font-size: 0;
 	cursor: pointer;
+	user-select: none;
+}
+
+.text-button:extend(.button) {
+	font-size: inherit;
+	padding: 0;
+}
+
+.text-button.bold {
+	font-weight: @bold;
+}
+
+.button[disabled],
+.text-button[disabled] {
+	opacity: 0.3;
+	pointer-events: none;
 }
 
 .animate-like {

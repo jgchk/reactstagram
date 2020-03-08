@@ -39,7 +39,7 @@ const PostCommentBox = React.forwardRef(({ onComment }, input) => {
           autoCorrect='off'
         />
         <button
-          className={clsx(common.button, styles.button)}
+          className={clsx(common.textButton, common.bold, styles.button)}
           type='submit'
           disabled={!text}
         >
