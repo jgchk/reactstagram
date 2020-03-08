@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 
@@ -13,10 +13,10 @@ import common from '../../../res/styles/common.module.less'
 const PostActions = ({ liked, onLike, onComment, onShare, onSave }) => {
   const [animating, setAnimating] = useState(false)
 
-  const onClickLike = () => {
+  const onClickLike = useCallback(() => {
     setAnimating(true)
     onLike()
-  }
+  }, [])
 
   return (
     <div className={styles.container}>

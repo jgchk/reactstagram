@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 
@@ -9,17 +9,17 @@ const PostCommentBox = React.forwardRef(({ onComment }, input) => {
   const [text, setText] = useState()
   const form = useRef(null)
 
-  const onPost = e => {
+  const onPost = useCallback(e => {
     e.preventDefault()
     onComment(text)
     setText('')
-  }
-  const onKeyPress = e => {
+  }, [])
+  const onKeyPress = useCallback(e => {
     if (e.key === 'Enter' && e.shiftKey === false) {
       e.preventDefault()
       form.current.dispatchEvent(new Event('submit'))
     }
-  }
+  }, [])
 
   return (
     <div className={styles.container}>

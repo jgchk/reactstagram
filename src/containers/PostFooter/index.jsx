@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -28,20 +28,20 @@ const PostFooter = ({ post }) => {
     state.get('likes').find(l => l.userId === currentUserId)
   )
 
-  const onLike = () => {
+  const onLike = useCallback(() => {
     if (like) dispatch(removeLike(like))
     else
       dispatch(
         addLike(createLike(new Date(), currentUserId, post.id, Target.POST))
       )
-  }
-  const onCommentButton = () => commentBox.current.focus()
-  const onShare = () => alert('share')
-  const onSave = () => alert('save')
-  const onCommentBox = text => {
+  }, [])
+  const onCommentButton = useCallback(() => commentBox.current.focus(), [])
+  const onShare = useCallback(() => alert('share'), [])
+  const onSave = useCallback(() => alert('save'), [])
+  const onCommentBox = useCallback(text => {
     const comment = createComment(text, new Date(), currentUserId, post.id)
     dispatch(addComment(comment))
-  }
+  }, [])
 
   return (
     <div>
