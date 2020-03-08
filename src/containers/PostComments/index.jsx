@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import clsx from 'clsx'
@@ -16,7 +16,7 @@ const PostComments = ({ post }) => {
 
   const onViewAllClick = useCallback(() => alert('view all comments'), [])
 
-  const viewDate = useMemo(() => new Date(), [])
+  const [viewDate] = useState(new Date())
 
   const postDescription = comments.find(c => c.isPostDescription)
   const otherComments = comments.filter(c => !c.isPostDescription)
