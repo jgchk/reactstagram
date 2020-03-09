@@ -87,8 +87,8 @@ const PostComment = ({
       like={likeEl}
       profilePic={profilePicEl}
       timestamp={timestampEl}
-      likes={likesEl}
-      reply={replyEl}
+      likes={isPostDescription ? null : likesEl}
+      reply={isPostDescription ? null : replyEl}
     />
   )
 }

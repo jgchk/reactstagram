@@ -36,8 +36,12 @@ const CommentLayout = ({
           <div className={clsx(styles.timestamp, styles.detail)}>
             {timestamp}
           </div>
-          <div className={clsx(styles.likes, styles.detail)}>{likes}</div>
-          <div className={clsx(styles.reply, styles.detail)}>{reply}</div>
+          {!!likes && (
+            <div className={clsx(styles.likes, styles.detail)}>{likes}</div>
+          )}
+          {!!reply && (
+            <div className={clsx(styles.reply, styles.detail)}>{reply}</div>
+          )}
         </div>
       </div>
       {!!like && <div className={clsx(styles.like, styles.detail)}>{like}</div>}
