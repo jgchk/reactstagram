@@ -74,10 +74,14 @@ const PostComments = ({ post, newCommentIds, truncated, layout, onReply }) => {
 
 PostComments.propTypes = {
   post: PropTypes.instanceOf(Post).isRequired,
-  newCommentIds: PropTypes.instanceOf(Iterable).isRequired,
+  newCommentIds: PropTypes.instanceOf(Iterable),
   truncated: PropTypes.bool.isRequired,
   layout: PropTypes.oneOf(Object.values(Layout)).isRequired,
   onReply: PropTypes.func.isRequired,
+}
+
+PostComments.defaultProps = {
+  newCommentIds: List(),
 }
 
 export default PostComments
