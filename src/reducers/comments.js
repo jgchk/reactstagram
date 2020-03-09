@@ -13,10 +13,11 @@ function addLike(state, like) {
 export default handleActions(
   {
     ADD_COMMENT: (state, { payload: { comment } }) => {
-      const newState = state.set(comment.id, comment)
+      let newState = state.set(comment.id, comment)
       if (comment.parentCommentId)
-        newState.updateIn([comment.parentCommentId, 'replyIds'], ids =>
-          ids.add(comment.id)
+        newState = newState.updateIn(
+          [comment.parentCommentId, 'replyIds'],
+          ids => ids.add(comment.id)
         )
       return newState
     },
