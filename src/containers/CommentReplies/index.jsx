@@ -3,16 +3,21 @@ import PropTypes from 'prop-types'
 import { Iterable } from 'immutable'
 import clsx from 'clsx'
 
+import Comment from '../../model/comment'
 import PostComment from '../PostComment'
 import { Layout } from '../../components/CommentLayout'
 
 import common from '../../../res/styles/common.module.less'
 import styles from './styles.module.less'
 
-const CommentReplies = ({ comment, replies, layout }) => {
+const CommentReplies = ({ comment, replies, layout, onReply }) => {
   const [expanded, setExpanded] = useState(false)
   const onExpand = useCallback(() => setExpanded(!expanded), [expanded])
-  const onReply = () => {}
+
+  const onClickReply = useCallback(
+    (_replyComment, replyUser) => onReply(comment, replyUser),
+    [onReply, comment]
+  )
 
   return (
     <div>
@@ -45,7 +50,7 @@ const CommentReplies = ({ comment, replies, layout }) => {
                 key={reply.id}
                 comment={reply}
                 layout={layout}
-                onReply={onReply}
+                onReply={onClickReply}
               />
             ))}
         </div>
@@ -58,6 +63,7 @@ CommentReplies.propTypes = {
   comment: PropTypes.instanceOf(Comment).isRequired,
   replies: PropTypes.instanceOf(Iterable).isRequired,
   layout: PropTypes.oneOf(Object.values(Layout)).isRequired,
+  onReply: PropTypes.func.isRequired,
 }
 
 export default CommentReplies

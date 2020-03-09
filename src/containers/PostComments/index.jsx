@@ -66,6 +66,7 @@ const PostComments = ({ post, newCommentIds, truncated, layout, onReply }) => {
           comment={comment}
           replies={replies}
           layout={layout}
+          onReply={onReply}
         />
       ))}
     </div>
