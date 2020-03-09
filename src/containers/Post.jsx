@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import { Set } from 'immutable'
 
-import PostLayout, { Layout } from './PostLayout'
+import PostLayout, { Layout } from '../components/PostLayout'
 import PostHeader from '../components/PostHeader'
 import PostImage from '../components/PostImage'
 import PostActions from '../components/PostActions'
