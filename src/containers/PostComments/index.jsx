@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
-import { Iterable } from 'immutable'
+import { Iterable, List } from 'immutable'
 
 import { Layout } from '../../components/CommentLayout'
 import Post from '../../model/post'
@@ -32,7 +32,7 @@ const PostComments = ({ post, newCommentIds, truncated, layout, onReply }) => {
     const displayComments = oldComments.takeLast(2).concat(newComments)
     commentsWithReplies = displayComments.map(comment => ({
       comment,
-      replies: [],
+      replies: List(),
     }))
   } else {
     const topLevelComments = otherComments.filter(c => !c.parentCommentId)
@@ -41,6 +41,7 @@ const PostComments = ({ post, newCommentIds, truncated, layout, onReply }) => {
         .map(replyId => commentMap.get(replyId))
         .valueSeq()
         .sort(timestampCompare)
+        .toList()
       return { comment, replies }
     })
   }

@@ -141,7 +141,7 @@ const Post = ({ post, layout }) => {
     />
   )
   const timestamp = (
-    <PostTimestamp timestamp={post.timestamp} to={`/p/${post.id}`} />
+    <PostTimestamp timestamp={new Date(post.timestamp)} to={`/p/${post.id}`} />
   )
   const commentBox = (
     <PostCommentBox onComment={onCommentBox} ref={commentBoxEl} />

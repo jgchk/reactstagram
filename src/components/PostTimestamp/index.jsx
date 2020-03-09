@@ -23,8 +23,7 @@ const PostTimestamp = ({ timestamp, to, short }) => {
 }
 
 PostTimestamp.propTypes = {
-  timestamp: PropTypes.oneOfType([PropTypes.number, PropTypes.instanceOf(Date)])
-    .isRequired,
+  timestamp: PropTypes.instanceOf(Date).isRequired,
   to: PropTypes.string,
   short: PropTypes.bool,
 }

@@ -99,8 +99,7 @@ PostComment.propTypes = {
   onClickPicture: PropTypes.func.isRequired,
   username: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  timestamp: PropTypes.oneOfType([PropTypes.number, PropTypes.instanceOf(Date)])
-    .isRequired,
+  timestamp: PropTypes.instanceOf(Date).isRequired,
   likes: PropTypes.number.isRequired,
   onClickLikes: PropTypes.func.isRequired,
   onClickReply: PropTypes.func.isRequired,

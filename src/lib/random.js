@@ -33,7 +33,7 @@ export function recentDate() {
 }
 
 export function dateSince(startDate) {
-  return faker.date.between(startDate, new Date())
+  return faker.date.between(new Date(startDate), new Date())
 }
 
 export function float(min, max) {
