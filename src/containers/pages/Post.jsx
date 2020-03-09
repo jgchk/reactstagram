@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
 import PostContainer from '../Post'
-import { Layout } from '../PostLayout'
+import { Layout } from '../../components/PostLayout'
 import page from './page.module.less'
 
 const Post = () => {

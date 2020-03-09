@@ -4,7 +4,8 @@ import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import { Set } from 'immutable'
 
-import PostLayout, { Layout } from '../components/PostLayout'
+import { Layout as CommentLayouts } from '../components/CommentLayout'
+import PostLayout, { Layout as PostLayouts } from '../components/PostLayout'
 import PostHeader from '../components/PostHeader'
 import PostImage from '../components/PostImage'
 import PostActions from '../components/PostActions'
@@ -113,7 +114,12 @@ const Post = ({ post, layout }) => {
     <PostComments
       post={post}
       newCommentIds={newCommentIds}
-      truncated={layout === Layout.VERTICAL}
+      truncated={layout === PostLayouts.VERTICAL}
+      layout={
+        layout === PostLayouts.VERTICAL
+          ? CommentLayouts.SIMPLE
+          : CommentLayouts.DETAIL
+      }
     />
   )
   const timestamp = (
@@ -139,7 +145,7 @@ const Post = ({ post, layout }) => {
 
 Post.propTypes = {
   post: PropTypes.instanceOf(PostModel).isRequired,
-  layout: PropTypes.oneOf(Object.values(Layout)).isRequired,
+  layout: PropTypes.oneOf(Object.values(PostLayouts)).isRequired,
 }
 
 export default Post

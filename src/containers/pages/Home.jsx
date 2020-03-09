@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 import Post from '../Post'
-import { Layout } from '../PostLayout'
+import { Layout } from '../../components/PostLayout'
 import page from './page.module.less'
 
 const Home = () => {

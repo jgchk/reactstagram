@@ -1,14 +1,7 @@
 @import '../../../res/styles/colors.less';
 @import '../../../res/styles/fonts.less';
 
-.container {
-	display: flex;
-	flex-direction: row;
-}
-
 .text-container {
-	margin-bottom: 4px;
-
 	word-wrap: break-word;
 }
 
@@ -17,7 +10,11 @@
 	margin-left: -5px;
 }
 
-button.like-button {
+button.like {
 	padding: 0;
-	margin-left: auto;
+}
+
+button.reply {
+	color: @lightText;
+	font-size: @small;
 }

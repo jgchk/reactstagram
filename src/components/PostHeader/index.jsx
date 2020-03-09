@@ -2,7 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 
+import ProfilePic from '../ProfilePic'
 import MoreIcon from '../../../res/svg/more.svg'
+
 import styles from './styles.module.less'
 import common from '../../../res/styles/common.module.less'
 
@@ -16,9 +18,7 @@ const PostHeader = ({
   onClickMore,
 }) => (
   <div className={styles.header}>
-    <button type='button' className={common.button} onClick={onClickPicture}>
-      <img className={styles.profilePic} src={pictureUrl} alt={username} />
-    </button>
+    <ProfilePic pictureUrl={pictureUrl} onClick={onClickPicture} />
     <div className={styles.info}>
       <button
         type='button'

@@ -7,13 +7,17 @@ import { timeSince } from '../../lib/date'
 import styles from './styles.module.less'
 import common from '../../../res/styles/common.module.less'
 
-const PostTimestamp = ({ timestamp, to }) => {
+const PostTimestamp = ({ timestamp, to, short }) => {
   const date = typeof timestamp === 'number' ? new Date(timestamp) : timestamp
   return (
-    <div>
-      <Link to={to} className={clsx(common.textButton, styles.timestamp)}>
-        {timeSince(date, true)}
-      </Link>
+    <div className={styles.container}>
+      {to ? (
+        <Link to={to} className={clsx(common.textButton, styles.timestamp)}>
+          {timeSince(date, !short)}
+        </Link>
+      ) : (
+        timeSince(date, !short)
+      )}
     </div>
   )
 }
@@ -21,7 +25,13 @@ const PostTimestamp = ({ timestamp, to }) => {
 PostTimestamp.propTypes = {
   timestamp: PropTypes.oneOfType([PropTypes.number, PropTypes.instanceOf(Date)])
     .isRequired,
-  to: PropTypes.string.isRequired,
+  to: PropTypes.string,
+  short: PropTypes.bool,
+}
+
+PostTimestamp.defaultProps = {
+  to: null,
+  short: false,
 }
 
 export default PostTimestamp

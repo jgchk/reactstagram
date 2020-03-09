@@ -45,8 +45,10 @@ const PostLayout = ({
         <div className={clsx(styles.image, styles.horizontal)}>{image}</div>
         <div className={clsx(styles.right, styles.horizontal)}>
           <div className={clsx(styles.header, styles.horizontal)}>{header}</div>
-          <div className={clsx(styles.comments, styles.horizontal)}>
-            {comments}
+          <div className={clsx(styles.commentsContainer, styles.horizontal)}>
+            <div className={clsx(styles.comments, styles.horizontal)}>
+              {comments}
+            </div>
           </div>
           <div className={clsx(styles.actions, styles.horizontal)}>
             {actions}

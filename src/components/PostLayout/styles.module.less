@@ -24,6 +24,10 @@
 }
 
 .timestamp {
+    letter-spacing: .2px;
+	font-size: @x-small;
+	line-height: 20px;
+	margin-bottom: 4px;
 	padding-left: 16px;
 }
 
@@ -64,10 +68,6 @@
 	margin-bottom: 8px;
 }
 
-.vertical.timestamp {
-	margin-bottom: 4px;
-}
-
 .horizontal.container {
 	width: calc(100% - 40px);
 	max-width: 935px;
@@ -101,8 +101,16 @@
 	border-bottom: 1px solid @lightBorder;
 }
 
-.horizontal.comments {
+.horizontal.commentsContainer {
+	position: relative;
 	flex-grow: 1;
+	box-sizing: content-box;
+	overflow: auto;
+}
+
+.horizontal.comments {
+	position: absolute;
+	padding-top: 16px;
 }
 
 .horizontal.actions {
