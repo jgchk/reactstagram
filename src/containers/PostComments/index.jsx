@@ -1,14 +1,13 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
-import clsx from 'clsx'
 import { Iterable } from 'immutable'
 
 import Post from '../../model/post'
 import PostComment from '../PostComment'
+import ViewAllButton from '../../components/ViewAllButton'
 
 import styles from './styles.module.less'
-import common from '../../../res/styles/common.module.less'
 
 const timestampCompare = (a, b) => a.timestamp - b.timestamp
 
@@ -19,22 +18,12 @@ const PostComments = ({ post, newCommentIds }) => {
     .valueSeq()
     .sort(timestampCompare)
 
-  const onViewAllClick = useCallback(() => alert('view all comments'), [])
-
   const postDescription = comments.find(c => c.isPostDescription)
   const otherComments = comments.filter(c => !c.isPostDescription).toList()
 
-  console.log('new', newCommentIds)
   const oldComments = otherComments.filter(c => !newCommentIds.includes(c.id))
   const newComments = otherComments.filter(c => newCommentIds.includes(c.id))
   const displayComments = oldComments.takeLast(2).concat(newComments)
-
-  console.log(
-    oldComments.toArray(),
-    newComments.toArray(),
-    oldComments.takeLast(2).toArray(),
-    displayComments.toArray()
-  )
 
   return (
     <div className={styles.container}>
@@ -42,11 +31,7 @@ const PostComments = ({ post, newCommentIds }) => {
         <PostComment key={postDescription.id} comment={postDescription} />
       )}
       {oldComments.size > 2 && (
-        <button
-          type='button'
-          className={clsx(common.textButton, styles.viewAllButton)}
-          onClick={onViewAllClick}
-        >{`View all ${otherComments.size} comments`}</button>
+        <ViewAllButton to={`/p/${post.id}`} numComments={otherComments.size} />
       )}
       {displayComments.map(comment => (
         <PostComment key={comment.id} comment={comment} />
