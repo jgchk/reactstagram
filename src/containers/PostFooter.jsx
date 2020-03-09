@@ -1,6 +1,7 @@
-import React, { useRef, useCallback } from 'react'
+import React, { useRef, useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
+import { Set } from 'immutable'
 
 import Post from '../model/post'
 import PostActions from '../components/PostActions'
@@ -16,6 +17,14 @@ const PostFooter = ({ post, currentUserId, liked, onLike }) => {
   const dispatch = useDispatch()
   const commentBox = useRef(null)
 
+  const [newCommentIds, setNewCommentIds] = useState(Set())
+
+  const onNewComment = useCallback(
+    comment => {
+      setNewCommentIds(newCommentIds.add(comment.id))
+    },
+    [newCommentIds]
+  )
   const onCommentButton = useCallback(() => commentBox.current.focus(), [
     commentBox,
   ])
@@ -24,9 +33,10 @@ const PostFooter = ({ post, currentUserId, liked, onLike }) => {
   const onCommentBox = useCallback(
     text => {
       const comment = createComment(text, new Date(), currentUserId, post.id)
+      onNewComment(comment)
       dispatch(addComment(comment))
     },
-    [currentUserId, post, dispatch]
+    [currentUserId, post, onNewComment, dispatch]
   )
   const onClickLikes = useCallback(() => alert('show likes list'), [])
   const onClickTimestamp = useCallback(() => alert('show post page'), [])
@@ -41,7 +51,7 @@ const PostFooter = ({ post, currentUserId, liked, onLike }) => {
         onSave={onSave}
       />
       <PostLikes likes={post.likeIds.size} onClick={onClickLikes} />
-      <PostComments post={post} />
+      <PostComments post={post} newCommentIds={newCommentIds} />
       <PostTimestamp timestamp={post.timestamp} onClick={onClickTimestamp} />
       <PostCommentBox onComment={onCommentBox} ref={commentBox} />
     </div>

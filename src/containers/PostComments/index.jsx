@@ -1,7 +1,8 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import clsx from 'clsx'
+import { Iterable } from 'immutable'
 
 import Post from '../../model/post'
 import PostComment from '../PostComment'
@@ -9,21 +10,31 @@ import PostComment from '../PostComment'
 import styles from './styles.module.less'
 import common from '../../../res/styles/common.module.less'
 
-const PostComments = ({ post }) => {
+const timestampCompare = (a, b) => a.timestamp - b.timestamp
+
+const PostComments = ({ post, newCommentIds }) => {
   const comments = useSelector(state =>
     post.commentIds.map(id => state.getIn(['comments', id]))
   )
+    .valueSeq()
+    .sort(timestampCompare)
 
   const onViewAllClick = useCallback(() => alert('view all comments'), [])
 
-  const [viewDate] = useState(new Date())
-
   const postDescription = comments.find(c => c.isPostDescription)
-  const otherComments = comments.filter(c => !c.isPostDescription)
+  const otherComments = comments.filter(c => !c.isPostDescription).toList()
 
-  const oldComments = comments.filter(c => c.timestamp <= viewDate)
-  const newComments = comments.filter(c => c.timestamp > viewDate)
-  const displayComments = oldComments.takeLast(2).union(newComments)
+  console.log('new', newCommentIds)
+  const oldComments = otherComments.filter(c => !newCommentIds.includes(c.id))
+  const newComments = otherComments.filter(c => newCommentIds.includes(c.id))
+  const displayComments = oldComments.takeLast(2).concat(newComments)
+
+  console.log(
+    oldComments.toArray(),
+    newComments.toArray(),
+    oldComments.takeLast(2).toArray(),
+    displayComments.toArray()
+  )
 
   return (
     <div className={styles.container}>
@@ -37,7 +48,7 @@ const PostComments = ({ post }) => {
           onClick={onViewAllClick}
         >{`View all ${otherComments.size} comments`}</button>
       )}
-      {displayComments.valueSeq().map(comment => (
+      {displayComments.map(comment => (
         <PostComment key={comment.id} comment={comment} />
       ))}
     </div>
@@ -46,6 +57,7 @@ const PostComments = ({ post }) => {
 
 PostComments.propTypes = {
   post: PropTypes.instanceOf(Post).isRequired,
+  newCommentIds: PropTypes.instanceOf(Iterable).isRequired,
 }
 
 export default PostComments
