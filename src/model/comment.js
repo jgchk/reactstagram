@@ -23,7 +23,7 @@ const Comment = Record({
 Comment.fromJS = data => {
   const comment = Comment(
     fromJS(data, (key, value) => {
-      if (key === 'likeIds') return value.toSet()
+      if (key === 'likeIds' || key === 'replyIds') return value.toSet()
       return defaultReviver(key, value)
     })
   )

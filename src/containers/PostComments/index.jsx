@@ -16,6 +16,7 @@ const PostComments = ({ post, newCommentIds, truncated, layout, onReply }) => {
   const commentMap = useSelector(state =>
     state.get('comments').filter(c => post.commentIds.has(c.id))
   )
+  console.log(commentMap)
   const comments = commentMap
     .valueSeq()
     .sort(timestampCompare)
