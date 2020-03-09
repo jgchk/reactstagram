@@ -12,7 +12,7 @@ import styles from './styles.module.less'
 
 const timestampCompare = (a, b) => a.timestamp - b.timestamp
 
-const PostComments = ({ post, newCommentIds, truncated, layout }) => {
+const PostComments = ({ post, newCommentIds, truncated, layout, onReply }) => {
   const comments = useSelector(state =>
     post.commentIds.map(id => state.getIn(['comments', id]))
   )
@@ -39,13 +39,19 @@ const PostComments = ({ post, newCommentIds, truncated, layout }) => {
           key={postDescription.id}
           comment={postDescription}
           layout={layout}
+          onReply={onReply}
         />
       )}
       {truncated && oldComments.size > 2 && (
         <ViewAllButton to={`/p/${post.id}`} numComments={otherComments.size} />
       )}
       {displayComments.map(comment => (
-        <PostComment key={comment.id} comment={comment} layout={layout} />
+        <PostComment
+          key={comment.id}
+          comment={comment}
+          layout={layout}
+          onReply={onReply}
+        />
       ))}
     </div>
   )
@@ -56,6 +62,7 @@ PostComments.propTypes = {
   newCommentIds: PropTypes.instanceOf(Iterable).isRequired,
   truncated: PropTypes.bool.isRequired,
   layout: PropTypes.oneOf(Object.values(Layout)).isRequired,
+  onReply: PropTypes.func.isRequired,
 }
 
 export default PostComments

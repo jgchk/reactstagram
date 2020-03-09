@@ -14,6 +14,7 @@ const Comment = Record({
   timestamp: null,
   userId: null,
   postId: null,
+  parentCommentId: null,
   likeIds: Set(),
   isPostDescription: false,
 })
@@ -35,7 +36,8 @@ export function createComment(
   timestamp,
   userId,
   postId,
-  isPostDescription = false
+  isPostDescription = false,
+  parentCommentId = null
 ) {
   return Comment({
     id: uid(),
@@ -44,6 +46,7 @@ export function createComment(
     userId,
     postId,
     isPostDescription,
+    parentCommentId,
   })
 }
 

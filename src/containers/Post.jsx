@@ -79,13 +79,30 @@ const Post = ({ post, layout }) => {
     [newCommentIds]
   )
 
+  const [replyParentCommentId, setReplyParentCommentId] = useState(null)
+  const onClickCommentReply = useCallback(
+    (parentComment, parentCommentUser) => {
+      setReplyParentCommentId(parentComment.id)
+      commentBoxEl.current.value += `@${parentCommentUser.username} `
+      commentBoxEl.current.focus()
+    },
+    [commentBoxEl]
+  )
+
   const onCommentBox = useCallback(
     text => {
-      const comment = createComment(text, new Date(), currentUserId, post.id)
+      const comment = createComment(
+        text,
+        new Date(),
+        currentUserId,
+        post.id,
+        false,
+        replyParentCommentId
+      )
       onNewComment(comment)
       dispatch(addComment(comment))
     },
-    [currentUserId, post, onNewComment, dispatch]
+    [currentUserId, post.id, replyParentCommentId, onNewComment, dispatch]
   )
 
   const image = <PostImage imageUrl={post.imageUrl} onLike={onLike} />
@@ -120,6 +137,7 @@ const Post = ({ post, layout }) => {
           ? CommentLayouts.SIMPLE
           : CommentLayouts.DETAIL
       }
+      onReply={onClickCommentReply}
     />
   )
   const timestamp = (

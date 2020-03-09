@@ -9,7 +9,7 @@ import { createLike, Target } from '../model/like'
 import { addLike, removeLike } from '../actions/likes'
 import PostCommentComponent from '../components/PostComment'
 
-const PostComment = ({ comment, layout }) => {
+const PostComment = ({ comment, layout, onReply }) => {
   const dispatch = useDispatch()
   const user = useSelector(state => state.getIn(['users', comment.userId]))
   const currentUserId = useSelector(state => state.get('currentUserId'))
@@ -25,7 +25,11 @@ const PostComment = ({ comment, layout }) => {
   )
 
   const onClickLikes = useCallback(() => alert('show likes list'), [])
-  const onClickReply = useCallback(() => alert('reply'), [])
+  const onClickReply = useCallback(() => onReply(comment, user), [
+    onReply,
+    comment,
+    user,
+  ])
   const onLike = useCallback(
     liked => {
       if (liked) {
@@ -68,6 +72,7 @@ const PostComment = ({ comment, layout }) => {
 PostComment.propTypes = {
   comment: PropTypes.instanceOf(Comment).isRequired,
   layout: PropTypes.oneOf(Object.values(Layout)).isRequired,
+  onReply: PropTypes.func.isRequired,
 }
 
 export default PostComment
