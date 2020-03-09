@@ -7,6 +7,7 @@ import { Layout } from '../../components/CommentLayout'
 import Post from '../../model/post'
 import PostComment from '../PostComment'
 import ViewAllButton from '../../components/ViewAllButton'
+import CommentReplies from '../CommentReplies'
 
 import styles from './styles.module.less'
 
@@ -60,12 +61,11 @@ const PostComments = ({ post, newCommentIds, truncated, layout, onReply }) => {
         <ViewAllButton to={`/p/${post.id}`} numComments={otherComments.size} />
       )}
       {commentsWithReplies.map(({ comment, replies }) => (
-        <PostComment
+        <CommentReplies
           key={comment.id}
           comment={comment}
-          layout={layout}
-          onReply={onReply}
           replies={replies}
+          layout={layout}
         />
       ))}
     </div>
