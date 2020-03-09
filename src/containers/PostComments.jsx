@@ -3,11 +3,9 @@ import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import { Iterable } from 'immutable'
 
-import Post from '../../model/post'
-import PostComment from '../PostComment'
-import ViewAllButton from '../../components/ViewAllButton'
-
-import styles from './styles.module.less'
+import Post from '../model/post'
+import PostComment from './PostComment'
+import ViewAllButton from '../components/ViewAllButton'
 
 const timestampCompare = (a, b) => a.timestamp - b.timestamp
 
@@ -26,7 +24,7 @@ const PostComments = ({ post, newCommentIds }) => {
   const displayComments = oldComments.takeLast(2).concat(newComments)
 
   return (
-    <div className={styles.container}>
+    <div>
       {!!postDescription && (
         <PostComment key={postDescription.id} comment={postDescription} />
       )}
