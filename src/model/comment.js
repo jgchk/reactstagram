@@ -16,6 +16,7 @@ const Comment = Record({
   postId: null,
   parentCommentId: null,
   likeIds: Set(),
+  replyIds: Set(),
   isPostDescription: false,
 })
 

@@ -13,23 +13,36 @@ import styles from './styles.module.less'
 const timestampCompare = (a, b) => a.timestamp - b.timestamp
 
 const PostComments = ({ post, newCommentIds, truncated, layout, onReply }) => {
-  const comments = useSelector(state =>
-    post.commentIds.map(id => state.getIn(['comments', id]))
+  const commentMap = useSelector(state =>
+    state.get('comments').filter(c => post.commentIds.has(c.id))
   )
+  const comments = commentMap
     .valueSeq()
     .sort(timestampCompare)
+    .toList()
 
   const postDescription = comments.find(c => c.isPostDescription)
-  const otherComments = comments.filter(c => !c.isPostDescription).toList()
+  const otherComments = comments.filter(c => !c.isPostDescription)
 
-  let displayComments
+  let commentsWithReplies
   let oldComments
   if (truncated) {
     oldComments = otherComments.filter(c => !newCommentIds.includes(c.id))
     const newComments = otherComments.filter(c => newCommentIds.includes(c.id))
-    displayComments = oldComments.takeLast(2).concat(newComments)
+    const displayComments = oldComments.takeLast(2).concat(newComments)
+    commentsWithReplies = displayComments.map(comment => ({
+      comment,
+      replies: [],
+    }))
   } else {
-    displayComments = otherComments
+    const topLevelComments = otherComments.filter(c => !c.parentCommentId)
+    commentsWithReplies = topLevelComments.map(comment => {
+      const replies = comment.replyIds
+        .map(replyId => commentMap.get(replyId))
+        .valueSeq()
+        .sort(timestampCompare)
+      return { comment, replies }
+    })
   }
 
   return (
@@ -45,12 +58,13 @@ const PostComments = ({ post, newCommentIds, truncated, layout, onReply }) => {
       {truncated && oldComments.size > 2 && (
         <ViewAllButton to={`/p/${post.id}`} numComments={otherComments.size} />
       )}
-      {displayComments.map(comment => (
+      {commentsWithReplies.map(({ comment, replies }) => (
         <PostComment
           key={comment.id}
           comment={comment}
           layout={layout}
           onReply={onReply}
+          replies={replies}
         />
       ))}
     </div>
