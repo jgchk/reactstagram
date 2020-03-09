@@ -65,7 +65,7 @@ const PostLayout = ({
 }
 
 PostLayout.propTypes = {
-  layout: PropTypes.oneOf([Layout.VERTICAL, Layout.HORIZONTAL]).isRequired,
+  layout: PropTypes.oneOf(Object.values(Layout)).isRequired,
   image: PropTypes.node.isRequired,
   header: PropTypes.node.isRequired,
   actions: PropTypes.node.isRequired,

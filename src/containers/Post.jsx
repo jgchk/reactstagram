@@ -109,7 +109,13 @@ const Post = ({ post, layout }) => {
     />
   )
   const likes = <PostLikes likes={post.likeIds.size} onClick={onClickLikes} />
-  const comments = <PostComments post={post} newCommentIds={newCommentIds} />
+  const comments = (
+    <PostComments
+      post={post}
+      newCommentIds={newCommentIds}
+      truncated={layout === Layout.VERTICAL}
+    />
+  )
   const timestamp = (
     <PostTimestamp timestamp={post.timestamp} to={`/p/${post.id}`} />
   )
@@ -133,7 +139,7 @@ const Post = ({ post, layout }) => {
 
 Post.propTypes = {
   post: PropTypes.instanceOf(PostModel).isRequired,
-  layout: PropTypes.oneOf([Layout.VERTICAL, Layout.HORIZONTAL]).isRequired,
+  layout: PropTypes.oneOf(Object.values(Layout)).isRequired,
 }
 
 export default Post
